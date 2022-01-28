@@ -8,28 +8,28 @@ exercises = read.read_exercises()
 
 
 #----------------------------------------------------------------------------------------------------------#
-# pracovanie s nacitanymi datami z excelu v kinteri a front end tkinteru
+# front end of tkinter, working with data from read.py
 
 
 class Display:
 
-    # inicializacia tkinteru a spustenie hlavnych funkcii classy
+    # init of main tkinter window
     def __init__(self, days, exercises):
 
         self.root = Tk()
-        self.root.geometry("620x620") # maximum 5x5 buttonov
+        self.root.geometry("620x620") # fits 5x5 buttons
         self.root.title('vyber tréning, ktorý chceš vytvoriť')
         self.root.resizable(False, False)
         
-        self.days = days # dictionary treningov so vsetkymi nazmi cvikov v tom treningu
-        self.exercises = exercises # dictionary vsetkych cvikov s kg a reps
+        self.days = days
+        self.exercises = exercises
         self.index = 0
         self.button_names = list(self.days.keys())
 
         self.create_buttons()
         self.create_button_new_exercise()
         
-    # vytvori vsetky buttons, ktore budu dnami uz napisane v exceli
+    # create buttons for all days already in excel file
     def create_buttons(self):
 
         name = 'button'
@@ -45,7 +45,7 @@ class Display:
             globals()[name + str(i)].place(width=100, height=100, x=b*100+20*(b+1), y=a*100+20*(a+1))
             self.index += 1
 
-    # vytvori button + na vytvorenie noveho dna
+    # create button for creating new day
     def create_button_new_exercise(self):
 
         s = Style()
@@ -58,7 +58,7 @@ class Display:
         self.creator_button = Button(self.root, text='+', style='my.TButton', command=lambda: [self.entry_new_training(), self.create_or_cancel()])
         self.creator_button.place(width=100, height=100, x=bx, y=by)
 
-    # vytvori entry, ktore sa pusti po stlaceni create_button_new_exercise()
+    # create entry for writing in the name of new day
     def entry_new_training(self):
 
         self.training_entry = Entry(self.root)
@@ -72,7 +72,7 @@ class Display:
         self.entry_label = Label(self.root, text='Zadaj názov:')
         self.entry_label.place(x=bx+5, y=(by-20))
     
-    # vytvori buttony pre entry, aby sa dalo zatvorit alebo zapisat zadany nazov dna
+    # create button to cancel creating new day or save it
     def create_or_cancel(self):
 
         a = self.index//5
@@ -85,7 +85,7 @@ class Display:
         self.cancel_button = Button(self.root, text='X', command=self.cancel)
         self.cancel_button.place(width=30, height=30, x=bx+40, y=by)
 
-    # stlacenie X buttonu pri entry
+    # pressing the cancel button under the entry
     def cancel(self):
 
         self.cancel_button.destroy()
@@ -93,7 +93,7 @@ class Display:
         self.training_entry.destroy()
         self.entry_label.destroy()
 
-    # stlacenie Ok buttonu pri entry
+    # pressing the ok button under the entry
     def create_new_training(self):
          
         new_name = self.training_entry.get().upper()
@@ -113,7 +113,7 @@ class Display:
         self.index += 1
         self.create_button_new_exercise()
 
-    # novy tkinter po stlaceni lubovolneho buttonu
+    # new tkinter after pressing button of one of the days
     def new_display(self, num):
 
         self.ex = self.days[self.button_names[num]]
@@ -189,7 +189,7 @@ class Display:
         self.combo_button = Button(self.new_root, text='create', command=lambda : self.add_new_exercise())
         self.combo_button.place(x=self.coor[0]+230, y=757)
 
-    # command na ulozenie entry do dictionary exercises
+    # command for saving whats in the entry
     def command_button_save(self):
 
         for exercise in self.ex:
@@ -201,7 +201,7 @@ class Display:
             if data != self.exercises[exercise][-1]:
                 self.exercises[exercise].append(data)
 
-    # button na pridanie 10% kg k poslednemu cviku
+    # button for adding 2.5kg and 5kg to the exercise
     def button_calc(self, exercise, number):
 
         kg = globals()[exercise + 'lastkg'].get()
@@ -215,7 +215,7 @@ class Display:
 
         globals()[exercise + 'lastkg'].insert(END, str(kg))
     
-    # button ktory nacita do entry posledne ulozene kg a reps
+    # button for loading last saved data of reps and kg in the entry
     def button_load(self, exercise):
         
         reps = self.exercises[exercise][-1][0]
@@ -227,7 +227,7 @@ class Display:
         globals()[exercise + 'lastreps'].insert(END, str(reps))
         globals()[exercise + 'lastkg'].insert(END, str(kg))
 
-    # button ktory vymaze cvik z treningu
+    # button for deleting exercise from day
     def button_delete(self, val):
 
         globals()[val + 'lastreps'].destroy()
@@ -252,7 +252,7 @@ class Display:
                     self.lines[i] = None
 
 
-    # button ktory zoberie nazov z comboboxu
+    # button for reading and adding exercise from combobox
     def add_new_exercise(self):
 
         val = self.option_menu.get()
@@ -299,7 +299,7 @@ class Display:
             self.ii += 1
             self.coor[1] += 50
     
-    # funkcia ktora vymaze tkinter treningu a uploadne data do excelu pomocou suboru output
+    # final function for deleting the new_root tkinter and saving everything to the excel file
     def export_data(self, training_index):
 
         self.command_button_save()
@@ -307,7 +307,6 @@ class Display:
         self.new_root.destroy()
 
 
-# spustenie hlavnej classy
 x = Display(days, exercises)
 
 x.root.mainloop()

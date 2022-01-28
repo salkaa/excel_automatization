@@ -7,7 +7,7 @@ sheet = workbook.active
 max_col = sheet.max_column
 max_row = sheet.max_row
 
-# week bude 2d list v ktorom bude nacitany cely excel, s ktorym budem potom pracovat
+# week = 2D array of every value in excel file
 
 def read_week():
 
@@ -26,7 +26,7 @@ def read_week():
 
     return week
 
-# dictionary treningov PULL+LEGS, PUSH+LEGS, PULL, LEGS, PUSH, values nazvy vsetkych cvikov pre ten trening
+# dictionary with keys as names of body parts that will be trained in that session and keys as exercises
 
 def read_days(week=read_week()):
 
@@ -45,7 +45,7 @@ def read_days(week=read_week()):
     
     return days
 
-# dictionary vsetkych cvikov, key nazov cviku, value 2d list s [reps, weights]
+# dictionary of all exercises in excel file with values as array [[reps1, kg1], [reps2, kg2]]
 
 def read_exercises(week=read_week()):
 

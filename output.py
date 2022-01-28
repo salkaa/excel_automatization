@@ -1,12 +1,14 @@
 from openpyxl import load_workbook
 
+# function that will be used in main.py, when new_root tkinter button "upload to excel" is pressed
+
 def main_function(names_of_exercises, all_exercises_dictionary, name_of_day):
     
     path = 'plan.xlsx'
     wb = load_workbook(path)
     sheet = wb.active
 
-    sheet.insert_rows(1, 5)     # pridanie 5 riadkov na zaciatok excelu
+    sheet.insert_rows(1, 5)
 
     abc = 'BCDEFGHIJKLMNOPQRSTUVWXYZ'
 
