@@ -1,10 +1,12 @@
 from tkinter import *
 from tkinter.ttk import *
-import read, output, openpyxl
+import read, output, choose_file
 
-days = read.read_days()
-week = read.read_week()
-exercises = read.read_exercises()
+file_path = choose_file.main()
+
+days = read.read_days(file_path)
+week = read.read_week(file_path)
+exercises = read.read_exercises(file_path)
 
 
 #----------------------------------------------------------------------------------------------------------#

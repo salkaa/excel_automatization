@@ -1,15 +1,14 @@
 import openpyxl
-path = 'plan.xlsx'
-
-workbook = openpyxl.load_workbook(path)
-sheet = workbook.active
-
-max_col = sheet.max_column
-max_row = sheet.max_row
 
 # week = 2D array of every value in excel file
 
-def read_week():
+def read_week(file_path):
+
+    workbook = openpyxl.load_workbook(file_path)
+    sheet = workbook.active
+
+    max_col = sheet.max_column
+    max_row = sheet.max_row
 
     week = [] 
     for n in range(1, max_row + 1):
@@ -28,9 +27,17 @@ def read_week():
 
 # dictionary with keys as names of body parts that will be trained in that session and keys as exercises
 
-def read_days(week=read_week()):
+def read_days(file_path):
+
+    workbook = openpyxl.load_workbook(file_path)
+    sheet = workbook.active
+
+    max_col = sheet.max_column
+    max_row = sheet.max_row
 
     days = {}
+
+    week = read_week(file_path)
 
     for i in range(len(week)//3):
 
@@ -47,7 +54,15 @@ def read_days(week=read_week()):
 
 # dictionary of all exercises in excel file with values as array [[reps1, kg1], [reps2, kg2]]
 
-def read_exercises(week=read_week()):
+def read_exercises(file_path):
+
+    workbook = openpyxl.load_workbook(file_path)
+    sheet = workbook.active
+
+    max_col = sheet.max_column
+    max_row = sheet.max_row
+
+    week = read_week(file_path)
 
     exercises = {}
     counter = 0
