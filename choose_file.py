@@ -21,8 +21,20 @@ def main():
         if '.xlsx' not in file:
             list_of_files.remove(file)
 
+    changed_files = list_of_files.copy()
+
+    x = 0
+
+    for file in changed_files:
+        index = 0
+        for i in range(len(file)):
+            if file[i] == '/':
+                index = i
+        changed_files[x] = file[index+1:]
+        x += 1
+
     file_root = Tk()
-    file_root.geometry("400x400")
+    file_root.geometry("800x800")
     file_root.title('vyber excel súbor')
     file_root.resizable(False, False)
 
@@ -31,8 +43,9 @@ def main():
     index = 0
 
     for file in list_of_files:
-        buttons.append(Button(file_root, text=file, command=lambda c=file: [change_path(c), file_root.destroy()]))
-        buttons[-1].place(width=300, x=50, y=30+(index*50))
+        buttons.append(Button(file_root, text=changed_files[index], command=lambda c=file: [change_path(c), file_root.destroy()]))
+        buttons[-1].place(width=500, height=30, x=150, y=30+(index*35))
+        index += 1
     
     file_root.mainloop()
     return path
