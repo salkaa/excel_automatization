@@ -1,8 +1,9 @@
 from tkinter import *
 from tkinter.ttk import *
-import read, output, choose_file
+import read, output, choose_file, cal
 
 file_path = choose_file.main()
+date = cal.display()
 
 days = read.read_days(file_path)
 week = read.read_week(file_path)
