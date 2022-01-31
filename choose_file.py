@@ -2,6 +2,8 @@ import os, glob
 from tkinter import *
 from tkinter.ttk import *
 
+# namiesto buttonov chcem mat asi radsej nejaky combobox na vyberanie, pretoze vsetky buttony sa nemusia zmestit do tkinteru
+
 path = ''
 
 def change_path(file):
