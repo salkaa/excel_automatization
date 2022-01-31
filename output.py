@@ -40,4 +40,4 @@ def main_function(names_of_exercises, all_exercises_dictionary, name_of_day, fil
         sheet[abc[n]+'3'] = data[1]
         n += 1
 
-    wb.save(path)
+    wb.save(file_path)

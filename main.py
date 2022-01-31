@@ -305,7 +305,7 @@ class Display:
     def export_data(self, training_index):
 
         self.command_button_save()
-        output.main_function(self.ex, self.exercises, self.button_names[training_index])
+        output.main_function(self.ex, self.exercises, self.button_names[training_index], file_path)
         self.new_root.destroy()
 
 
