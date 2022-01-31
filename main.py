@@ -5,8 +5,11 @@ import read, output, choose_file, cal
 file_path = choose_file.main()
 date = cal.display()
 
+data = read.read_days(file_path)
 days = read.read_days(file_path)
 week = read.read_week(file_path)
+tyzden = read.read_tyzden(file_path)
+sheet_sorted_by_date = read.read_sheet_sorted_by_date(file_path)
 exercises = read.read_exercises(file_path)
 
 
@@ -121,7 +124,7 @@ class Display:
 
         self.ex = self.days[self.button_names[num]]
         self.new_root = Tk()
-        self.new_root.geometry('800x800')
+        self.new_root.geometry('10001000x')
         self.new_root.title(self.button_names[num])
         self.new_root.resizable(False, False)
 
@@ -139,10 +142,10 @@ class Display:
         self.label_kg.place(x=394, y=10)
 
         self.first_separator = Separator(self.new_root, orient='horizontal')
-        self.first_separator.place(width=800, y=37)
+        self.first_separator.place(width=1000, y=37)
 
         self.second_separator = Separator(self.new_root, orient='vertical')
-        self.second_separator.place(height=800, x=self.coor[0]+355)
+        self.second_separator.place(height=1000, x=self.coor[0]+355)
 
         self.export_button = Button(self.new_root, text='UPLOAD TO EXCEL', command=lambda : self.export_data(num))
         self.export_button.place(width=150, height=50, x=515, y=735)
@@ -177,7 +180,7 @@ class Display:
             globals()[exercise + 'delete'].place(width=70, x=690, y=self.coor[-1]-5)
             
             self.lines.append(Separator(self.new_root, orient='horizontal'))
-            self.lines[-1].place(width=800, x=0, y=self.coor[1]+33)
+            self.lines[-1].place(width=1000, x=0, y=self.coor[1]+33)
             
             self.ii += 1
             self.coor[1] += 50
@@ -297,7 +300,7 @@ class Display:
             globals()[val + 'delete'].place(width=70, x=690, y=self.coor[-1]-5)
                 
             self.lines.append(Separator(self.new_root, orient='horizontal'))
-            self.lines[-1].place(width=800, x=0, y=self.coor[1]+33)
+            self.lines[-1].place(width=1000, x=0, y=self.coor[1]+33)
 
             self.ii += 1
             self.coor[1] += 50
