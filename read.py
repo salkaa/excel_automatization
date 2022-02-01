@@ -32,21 +32,30 @@ def read_data():
         data.append(value_row)
 
     headers_of_weeks = [] # mam 2d list s nazvami tyzdnov a ich indexami v data
-
+    indexes = []
     for value in data:
-        if len(value) == 1:
+        if len(value) == 1 and "Týždeň" in value[0]:
+            indexes.append(data.index(value))
             headers_of_weeks.append([value, data.index(value)])
     
-    return data, headers_of_weeks
+    print('\nheaders of weeks:\n\n', headers_of_weeks)
+    
+    weeks_dict = {} # data rozdelene podla indexov headers_of_weeks (bez nich)
+
+    for i in range(len(indexes) - 1):
+        weeks_dict[headers_of_weeks[i][0]] = []
+        for n in range(indexes[i+1] - indexes[i]):
+            weeks_dict[headers_of_weeks[i][0]].append(data[indexes[i]+n])
+    
+    for key in weeks_dict.keys():
+        print(key)
+
+    return data, headers_of_weeks, weeks_dict
 
 read_data()
-            
-    # teraz potrebujem kazdy list v tomto liste rozdelit na tretiny podla toho kde je medzera
 
 
 '''
-
-['Január- Mezocyklus 1/3- 2750kcal-3000kcal- 120-140B Netréningový deň/ 150-170B Tréningový deň']
 ['1. Týždeň- 3.1.2022-9.1.2022- (87,5kg)']
 ['01/03/2022 1.trening', '01/06/2022 2.trening', '01/08/2022 3.trening']
 ['3x', '3x', '3x']
