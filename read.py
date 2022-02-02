@@ -36,19 +36,68 @@ def read_data():
     for value in data:
         if len(value) == 1 and "Týždeň" in value[0]:
             indexes.append(data.index(value))
-            headers_of_weeks.append([value, data.index(value)])
+            headers_of_weeks.append([value[0], data.index(value)])
     
     print('\nheaders of weeks:\n\n', headers_of_weeks)
-    
+    print('\n', indexes, '\n')
+
     weeks_dict = {} # data rozdelene podla indexov headers_of_weeks (bez nich)
 
-    for i in range(len(indexes) - 1):
-        weeks_dict[headers_of_weeks[i][0]] = []
-        for n in range(indexes[i+1] - indexes[i]):
-            weeks_dict[headers_of_weeks[i][0]].append(data[indexes[i]+n])
-    
-    for key in weeks_dict.keys():
+    for index in indexes[:-1]:
+        name = headers_of_weeks[indexes.index(index)][0]
+        weeks_dict[name] = [data[i] for i in range(index+1, indexes[indexes.index(index)+1])]
+
+    for key in weeks_dict:
         print(key)
+        print(weeks_dict[key])
+
+    # key je nazov treningu, values su nazvy cvikov, pocet serii opakovani a hmotnost, komentar
+
+    days = {}
+
+    for key in weeks_dict:
+        
+        values = weeks_dict[key]
+        names = []
+        for element in values[0]:
+        
+            date_name = element.split() # date_name = ['datum', 'meno treningu']
+            name = date_name[1] # 'meno treningu'
+            names.append(name)
+            if date_name[1] not in days.keys():
+                days[name] = []
+        
+        # meno treningu uz mam v days ako key, teraz to musim rozdelit do samotnych treningov
+
+        divided = []
+        for x in values[0]:
+            divided.append([])
+        reps = []
+
+        for array in values[1:]:
+            
+            if len(array) == 3:
+                reps = array
+            
+            else:
+                for i in range(len(array)):
+                    if i%3 == 1:
+                        divided[i//3].append(reps[i//3] + array[i])
+                    else:
+                        divided[i//3].append(array[i])
+        
+        
+        for name in names:
+            days[name].append(divided[names.index(name)])
+    
+
+    for key in days:
+        print(key)
+        print(days[key])
+
+            
+        
+
 
     return data, headers_of_weeks, weeks_dict
 
